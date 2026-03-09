@@ -2,13 +2,13 @@
 using SeleniumAutomation.Core;
 using SeleniumAutomation.WebComponents.Login;
 
-namespace SeleniumAutomation.TestCases.UC_Login
+namespace SeleniumAutomation.TestCases.UC01_Login
 {
-    internal class TC_Login_ValidUser : WebDriverBase
+    internal class TC01_01_Login_ValidUser : WebDriverBase
     {
-        public TC_Login_ValidUser(IWebDriver driver) : base(driver) { }
+        public TC01_01_Login_ValidUser(IWebDriver driver) : base(driver) { }
 
-        internal TC_Login_ValidUser Check()
+        internal TC01_01_Login_ValidUser Check()
         {
             var login = new Login(Driver);
 

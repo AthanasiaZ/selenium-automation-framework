@@ -36,10 +36,6 @@ namespace SeleniumAutomation.WebComponents.Login
                 return GetElementByCss("[data-test='error']", condition);
             }
 
-            public IWebElement InventoryContainer(string condition = "find")
-            {
-                return GetElementByCss("#inventory_container", condition);
-            }
             public IWebElement LoginLogo(string condition = "find")
             {
                 return GetElementByCss(".login_logo", condition);
