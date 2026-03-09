@@ -55,9 +55,27 @@ namespace WebComponents.Inventory
             {
                 return GetElementByCss(".shopping_cart_badge", condition);
             }
-        }
 
-        // ================= PAGE STATE =================
+            public IWebElement AddToCartButton(string productName, string condition = "find")
+            {
+                return GetElementByCss($"#{BuildButtonId("add-to-cart", productName)}", condition);
+            }
+
+            public IWebElement RemoveButton(string productName, string condition = "find")
+            {
+                return GetElementByCss($"#{BuildButtonId("remove", productName)}", condition);
+            }
+
+            private static string BuildButtonId(string prefix, string productName)
+            {
+                return $"{prefix}-{NormalizeProductName(productName)}";
+            }
+
+            private static string NormalizeProductName(string productName)
+            {
+                return productName.Trim().ToLowerInvariant().Replace(" ", "-");
+            }
+        }
 
         public bool IsOnInventoryPage()
         {
@@ -74,8 +92,6 @@ namespace WebComponents.Inventory
             return Locators.InventoryItems().Count;
         }
 
-        // ================= SORTING =================
-
         public void SortByText(string text)
         {
             var dropdown = Locators.SortDropdown("visible");
@@ -89,8 +105,6 @@ namespace WebComponents.Inventory
         public void SortByNameDescending() => SortByText("Name (Z to A)");
         public void SortByPriceAscending() => SortByText("Price (low to high)");
         public void SortByPriceDescending() => SortByText("Price (high to low)");
-
-        // ================= PRODUCT DATA =================
 
         public List<string> GetProductNames()
         {
@@ -106,18 +120,24 @@ namespace WebComponents.Inventory
                 .ToList();
         }
 
-        // ================= CART =================
-
         public void AddProductToCart(string productName)
         {
-            var item = GetProductContainer(productName);
-            item.FindElement(By.TagName("button")).Click();
+            var button = Locators.AddToCartButton(productName, "clickable");
+            button.Click();
+
+            Wait.Until(_ =>
+                !IsElementPresentByCss($"#{BuildButtonId("add-to-cart", productName)}") &&
+                 IsElementPresentByCss($"#{BuildButtonId("remove", productName)}"));
         }
 
         public void RemoveProductFromCart(string productName)
         {
-            var item = GetProductContainer(productName);
-            item.FindElement(By.TagName("button")).Click();
+            var button = Locators.RemoveButton(productName, "clickable");
+            button.Click();
+
+            Wait.Until(_ =>
+                !IsElementPresentByCss($"#{BuildButtonId("remove", productName)}") &&
+                 IsElementPresentByCss($"#{BuildButtonId("add-to-cart", productName)}"));
         }
 
         public int GetCartBadgeCount()
@@ -125,7 +145,7 @@ namespace WebComponents.Inventory
             if (!IsElementPresentByCss(".shopping_cart_badge"))
                 return 0;
 
-            return int.Parse(Locators.CartBadge("visible").Text);
+            return int.Parse(Locators.CartBadge("visible").Text.Trim());
         }
 
         public bool IsCartBadgeVisible()
@@ -135,18 +155,34 @@ namespace WebComponents.Inventory
 
         public void OpenCart()
         {
-            WaitUntilClick(() => Locators.CartIcon("clickable"));
+            var cart = Locators.CartIcon("clickable");
+            cart.Click();
         }
 
-        // ================= HELPERS =================
-
-        private IWebElement GetProductContainer(string productName)
+        public bool IsProductMarkedAsAdded(string productName)
         {
-            return Locators.InventoryItems()
-                .First(item =>
-                    item.FindElement(By.ClassName("inventory_item_name"))
-                        .Text.Trim()
-                        .Equals(productName, StringComparison.OrdinalIgnoreCase));
+            return IsElementPresentByCss($"#{BuildButtonId("remove", productName)}");
+        }
+
+        public string GetProductButtonText(string productName)
+        {
+            if (IsElementPresentByCss($"#{BuildButtonId("remove", productName)}"))
+                return Locators.RemoveButton(productName, "visible").Text.Trim();
+
+            if (IsElementPresentByCss($"#{BuildButtonId("add-to-cart", productName)}"))
+                return Locators.AddToCartButton(productName, "visible").Text.Trim();
+
+            throw new NoSuchElementException($"No cart action button found for product '{productName}'.");
+        }
+
+        private string BuildButtonId(string prefix, string productName)
+        {
+            return $"{prefix}-{NormalizeProductName(productName)}";
+        }
+
+        private string NormalizeProductName(string productName)
+        {
+            return productName.Trim().ToLowerInvariant().Replace(" ", "-");
         }
     }
 }
