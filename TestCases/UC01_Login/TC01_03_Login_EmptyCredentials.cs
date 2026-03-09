@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAutomation.Core;
-using SeleniumAutomation.WebComponents.Login;
+using WebComponents.Login;
 
-namespace SeleniumAutomation.TestCases.UC01_Login
+namespace TestCases.UC01_Login
 {
     internal class TC01_03_Login_EmptyCredentials : WebDriverBase
     {

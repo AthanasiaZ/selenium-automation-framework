@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAutomation.Core;
-using SeleniumAutomation.WebComponents.Login;
+using WebComponents.Login;
 
-namespace SeleniumAutomation.TestCases.UC01_Login
+namespace TestCases.UC01_Login
 {
     internal class TC01_04_Login_EmptyPassword : WebDriverBase
     {
@@ -11,9 +11,8 @@ namespace SeleniumAutomation.TestCases.UC01_Login
         internal TC01_04_Login_EmptyPassword Check()
         {
             var login = new Login(Driver);
-
             login.Open();
-            login.LoginAs(TestConfig.InvalidUsername, "");
+            login.LoginAs(TestConfig.StandardUser.Username, "");
             Assert.That(login.GetErrorMessage(), Does.Contain("Password is required"));
             return this;
         }

@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using SeleniumAutomation.Core;
+﻿using SeleniumAutomation.Core;
 
-namespace SeleniumAutomation.TestCases.UC01_Login
+namespace TestCases.UC01_Login
 {
     [TestFixture]
     public class Cases : BaseTest
@@ -15,7 +14,7 @@ namespace SeleniumAutomation.TestCases.UC01_Login
         [Test]
         public void TC01_02()
         {
-            new TC01_02_Login_InvalidUser(Driver).Check();
+            new TC01_02_Login_InvalidPassword(Driver).Check();
         }
 
         [Test]
@@ -28,6 +27,12 @@ namespace SeleniumAutomation.TestCases.UC01_Login
         public void TC01_04()
         {
             new TC01_04_Login_EmptyPassword(Driver).Check();
+        }
+
+        [Test]
+        public void TC01_05()
+        {
+            new TC01_05_Login_LockedOutUser(Driver).Check();
         }
 
     }

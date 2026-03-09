@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAutomation.Core;
 
-namespace SeleniumAutomation.WebComponents.Login
+namespace WebComponents.Login
 {
     public class Login : WebDriverBase
     {
@@ -79,9 +79,5 @@ namespace SeleniumAutomation.WebComponents.Login
             return Locators.ErrorMessage("visible").Text;
         }
 
-        public bool IsOnInventoryPage()
-        {
-            return IsElementPresentByCss("#inventory_container");
-        }
     }
 }
