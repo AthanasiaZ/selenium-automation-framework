@@ -125,9 +125,7 @@ namespace WebComponents.Inventory
             var button = Locators.AddToCartButton(productName, "clickable");
             button.Click();
 
-            Wait.Until(_ =>
-                !IsElementPresentByCss($"#{BuildButtonId("add-to-cart", productName)}") &&
-                 IsElementPresentByCss($"#{BuildButtonId("remove", productName)}"));
+            Wait.Until(_ => IsElementPresentByCss($"#{BuildButtonId("remove", productName)}"));
         }
 
         public void RemoveProductFromCart(string productName)
@@ -135,11 +133,8 @@ namespace WebComponents.Inventory
             var button = Locators.RemoveButton(productName, "clickable");
             button.Click();
 
-            Wait.Until(_ =>
-                !IsElementPresentByCss($"#{BuildButtonId("remove", productName)}") &&
-                 IsElementPresentByCss($"#{BuildButtonId("add-to-cart", productName)}"));
+            Wait.Until(_ => IsElementPresentByCss($"#{BuildButtonId("add-to-cart", productName)}"));
         }
-
         public int GetCartBadgeCount()
         {
             if (!IsElementPresentByCss(".shopping_cart_badge"))
