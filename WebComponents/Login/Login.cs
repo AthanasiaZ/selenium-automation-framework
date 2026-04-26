@@ -50,14 +50,12 @@ namespace PageObjects.Login
 
         public void EnterUsername(string username)
         {
-            WaitUntilClick(() => Locators.Username("visible"));
             Locators.Username().Clear();
             Locators.Username().SendKeys(username);
         }
 
         public void EnterPassword(string password)
         {
-            WaitUntilClick(() => Locators.Password("visible"));
             Locators.Password().Clear();
             Locators.Password().SendKeys(password);
         }

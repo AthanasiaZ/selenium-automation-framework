@@ -28,7 +28,7 @@ namespace TestCases.UC02_Inventory
 
             product = inventory.Locators.InventoryItemByName(productName, "find");
 
-            var container = product; // inventory_item
+            var container = product;
             var button = product.FindElement(By.CssSelector("button.btn_inventory"));
 
             var isInside = IsElementInside(button, container);
