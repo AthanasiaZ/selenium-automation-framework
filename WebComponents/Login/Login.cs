@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAutomation.Core;
 
-namespace WebComponents.Login
+namespace PageObjects.Login
 {
     public class Login : WebDriverBase
     {
@@ -62,21 +62,21 @@ namespace WebComponents.Login
             Locators.Password().SendKeys(password);
         }
 
-        public void ClickLogin()
-        {
-            WaitUntilClick(() => Locators.LoginButton("clickable"));
-        }
-
         public void LoginAs(string username, string password)
         {
             EnterUsername(username);
             EnterPassword(password);
-            ClickLogin();
+            WaitUntilClick(() => Locators.LoginButton("clickable"));
         }
 
         public string GetErrorMessage()
         {
             return Locators.ErrorMessage("visible").Text;
+        }
+
+        public bool IsOnLoginPage()
+        {
+            return Driver.FindElements(By.Id("login-button")).Any();
         }
 
     }

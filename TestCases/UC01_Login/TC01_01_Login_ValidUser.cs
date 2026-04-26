@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAutomation.Core;
-using WebComponents.Inventory;
-using WebComponents.Login;
+using PageObjects.Inventory;
+using PageObjects.Login;
 
-namespace TestCases.UC01_Login
+namespace TestCases.UC01_Global_Navigation
 {
     internal class TC01_01_Login_ValidUser : WebDriverBase
     {

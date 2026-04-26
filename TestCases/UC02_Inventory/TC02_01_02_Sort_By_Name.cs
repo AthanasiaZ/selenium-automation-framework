@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using SeleniumAutomation.Core;
-using WebComponents.Inventory;
-using WebComponents.Login;
+using PageObjects.Inventory;
+using PageObjects.Login;
 
 namespace TestCases.UC02_Inventory
 {

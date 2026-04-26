@@ -1,8 +1,9 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.BiDi.BrowsingContext;
+using PageObjects.Login;
 using SeleniumAutomation.Core;
-using WebComponents.Login;
 
-namespace TestCases.UC01_Login
+namespace TestCases.UC01_Global_Navigation
 {
     internal class TC01_03_Login_EmptyCredentials : WebDriverBase
     {
@@ -13,7 +14,7 @@ namespace TestCases.UC01_Login
             var login = new Login(Driver);
 
             login.Open();
-            login.ClickLogin();
+            WaitUntilClick(() => login.Locators.LoginButton("clickable"));
             Assert.That(login.GetErrorMessage(), Does.Contain("Username is required"));
             return this;
         }

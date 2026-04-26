@@ -32,6 +32,12 @@ namespace SeleniumAutomation.Core
             config["CheckoutData:PostalCode"]
             ?? throw new InvalidOperationException("Missing configuration: CheckoutData:PostalCode");
 
+        public static class Checkout
+        {
+            public static string FirstName => config["CheckoutData:FirstName"]!;
+            public static string LastName => config["CheckoutData:LastName"]!;
+            public static string PostalCode => config["CheckoutData:PostalCode"]!;
+        }
         public static UserCredentials GetUser(string userKey)
         {
             if (string.IsNullOrWhiteSpace(userKey))
@@ -76,5 +82,4 @@ namespace SeleniumAutomation.Core
             public const string Error = "Error";
             public const string Visual = "Visual";
     }
-    
 }
