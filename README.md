@@ -54,6 +54,8 @@ The project is organized into the following layers:
 | TC01_01 | Valid login |
 | TC01_02 | Invalid login |
 | TC01_03 | Locked out user validation |
+| TC01_04 | Login EmptyPassword |
+| TC01_05 | Login LockedOutUser |
 | TC01_06 | Logout |
 | TC01_07 | Reset app state |
 | TC01_08 | About link navigation |
